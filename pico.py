@@ -61,11 +61,8 @@ def getNextField(response):
     case 0x04:  # Text string
       response = response[7:]  # Strip first part
       index = response.find(b"\x00\xff")
-      debug(index)
       word = response[:index].decode()
-      debug(word)
       response = response[index + 2 :]
-      debug(response)
       return field_nr, word, response
     case _:
       debug(f"Uknown field type: {field_type}")
@@ -331,7 +328,7 @@ while True:
   while True:
     message, addr = client.recvfrom(4096)
     debug("Received packet with length " + str(len(message)))
-    if len(message) > 100 and len(message) < 1000:
+    if len(message) > 100 and len(message) < 1200:
       break
 
   debug(f"Message: {message}")
